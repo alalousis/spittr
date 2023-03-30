@@ -17,12 +17,12 @@ public class SpittleJDBCRepository {
         connection = connectionFactory.getConnection();
     }
 
-    public void createSpittle(Long id, String message, String time, Double longitude, Double latitude) {
+    public void createSpittle(String message, String time, Double longitude, Double latitude) {
         SpittleJDBCRepository spittleDAOService = new SpittleJDBCRepository();
-        Spittle spittle = spittleDAOService.getSpittleById(id);
-
+        
         if (spittle == null) {
             try {
+                /*Create an ID incremental*/
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO spittle (id, message, time, longitude, latitude) VALUES (?, ?, ?, ?, ?);");
                 ps.setLong(1, id);
                 ps.setString(2, message);
