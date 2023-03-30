@@ -13,11 +13,13 @@ public class SpittleJDBCRepository {
     private Connection connection;
 
     public SpittleJDBCRepository() {
+         /* Add system.out.prinln indicative message */
         connectionFactory = new ConnectionFactory();
         connection = connectionFactory.getConnection();
     }
 
     public void createSpittle(Long id, String message, String time, Double longitude, Double latitude) {
+        /* Add system.out.prinln indicative message */
         SpittleJDBCRepository spittleDAOService = new SpittleJDBCRepository();
         Spittle spittle = spittleDAOService.getSpittleById(id);
 
@@ -41,7 +43,7 @@ public class SpittleJDBCRepository {
     }
 
     public Spittle getSpittleById(Long id) {
-
+         /* Add system.out.prinln indicative message */
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM spittle WHERE id=?");
             ps.setLong(1, id);
@@ -69,7 +71,7 @@ public class SpittleJDBCRepository {
 
 
     public void updateSpittleMessageById(Long id, String message) {
-
+         /* Add system.out.prinln indicative message */
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE spittle SET message=? where id = ?;");
             ps.setString(1, message);
@@ -83,7 +85,7 @@ public class SpittleJDBCRepository {
     }
 
     public void deleteSpittleById(Long id) {
-
+         /* Add system.out.prinln indicative message */
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE from spittle where id = ?;");
             ps.setLong(1, id);
