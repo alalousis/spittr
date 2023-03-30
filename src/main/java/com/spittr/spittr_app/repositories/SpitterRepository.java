@@ -17,6 +17,7 @@ public class SpitterRepository {
     }
 
     public void createSpitter(Long id, String username, String password, String firstName, String lastName, String email){
+        /* Add indicative messages*/
         Session session = sessionFactory.openSession();
         Transaction t=session.beginTransaction();
 
