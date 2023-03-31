@@ -8,21 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SpitterJDBCRepository {
+public static class SpitterJDBCRepository {
     private ConnectionFactory connectionFactory;
     private Connection connection;
-    private Long id;
 
     public SpitterJDBCRepository() {
+        System.out.println("SpitterJDBCRepository.constructor");
         connectionFactory = new ConnectionFactory();
         connection = connectionFactory.getConnection();
     }
 
     public void createSpitter(String username, String password, String firstName, String lastName, String email) {
-        System.out.println("SpitterService.createSpitter.SpitterJDBCRepository.createSpitter");
-        SpitterJDBCRepository spitterJDBCRepository = new SpitterJDBCRepository();
+        System.out.println("SpitterJDBCRepository.createSpitter");
         Spitter spitter = spitterJDBCRepository.getSpitterByUsername(username);
-
         if (spitter == null) {
             try {
                 id = this.getMaxId() + 1;
@@ -34,8 +32,6 @@ public class SpitterJDBCRepository {
                 ps.setString(5, lastName);
                 ps.setString(6, email);
                 ps.executeUpdate();
-
-
             } catch (SQLException ex) {
                 System.err.println("Test");
                 //ex.printStackTrace();
@@ -44,40 +40,34 @@ public class SpitterJDBCRepository {
         else{
             System.err.println("Spitter with username:" + username + " already exists");
         }
-
     }
 
     public Spitter getSpitterByUsername(String username) {
-
+        System.out.println("SpitterJDBCRepository.getSpitterByUsername");
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM spitter WHERE username=?");
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-
             if(rs.next())
             {
                 Spitter spitter = new Spitter();
-
                 spitter.setId( rs.getLong("id") );
                 spitter.setUsername( rs.getString("username") );
                 spitter.setPassword( rs.getString("password") );
                 spitter.setFirstName( rs.getString("firstName") );
                 spitter.setLastName( rs.getString("lastName") );
                 spitter.setEmail( rs.getString("email") );
-
                 return spitter;
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return null;
     }
 
 
     public void updateSpitterEmailByUsername(String username, String email) {
-
+        System.out.println("SpitterJDBCRepository.updateSpitterEmailByUsername");
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE spitter SET email=? where username = ?;");
             ps.setString(1, email);
@@ -87,11 +77,10 @@ public class SpitterJDBCRepository {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
 
     public void deleteSpitterByUsername(String username) {
-
+        System.out.println("SpitterJDBCRepository.deleteSpitterByUsername");
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE from spitter where username = ?;");
             ps.setString(1, username);
@@ -100,25 +89,19 @@ public class SpitterJDBCRepository {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
 
     public Long getMaxId(){
-        System.out.println("SpitterService.createSpitter.SpitterJDBCRepository.createSpitter.getMaxId");
-
+        System.out.println("SpitterJDBCRepository.getMaxId");
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT max(id) as maxId FROM spitter");
-
             ResultSet rs = ps.executeQuery();
-
             if(rs.next()) {
                 return rs.getLong("maxId");
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return null;
     }
 
