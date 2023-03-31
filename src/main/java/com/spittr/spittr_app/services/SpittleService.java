@@ -10,14 +10,14 @@ public class SpittleService {
         this.spittleJDBCRepository = new SpittleJDBCRepository();
     }
 
-    public void createSpittle(long id, String message, String time, Double longitude, Double latitude){
+    public void createSpittle(String message, String time, Double longitude, Double latitude){
         System.out.println("\nCreate new spittle ...");
-
+        System.out.println("SpittleService.createSpittle");
         // ------ Plain JAVA -------------
         //return new Spittle(id, message, time, longitude, latitude);
 
         // ------ JDBC Repository  ---------------
-        this.spittleJDBCRepository.createSpittle(id, message, time, longitude, latitude);
+        this.spittleJDBCRepository.createSpittle(message, time, longitude, latitude);
     }
     public Spittle readSpittleById(Long id){
         System.out.println("\nRead spittle:");

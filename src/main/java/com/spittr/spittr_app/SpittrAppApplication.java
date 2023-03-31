@@ -15,25 +15,24 @@ public class SpittrAppApplication {
 
 		// ----------- Spitter -----------
 		SpitterService spitterService = new SpitterService();
-//		spitterService.createSpitter(1000L, "leonelMessi","1030", "leonel", "messi", "leonel.messi@gmail.com");
-		spitterService.createSpitter(2000L, "leondardodicaprio", "4567", "leonardo", "dicaprio", "dicaprio@gmail.com");
+		spitterService.createSpitter("leondardodicaprio2", "4567", "leonardo", "dicaprio", "dicaprio@gmail.com");
 
 
-		Spitter spitterMessi = spitterService.readSpitterByUsername("leonelMessi");
-		System.out.println(spitterMessi.toString());
+		Spitter spitterDicaprio= spitterService.readSpitterByUsername("leondardodicaprio");
+		System.out.println(spitterDicaprio.toString());
 
 		spitterService.updateSpitterEmailByUsername("leonelMessi", "leo@gmail.com");
 		System.out.println(spitterService.readSpitterByUsername("leonelMessi"));
 
 		// ----------- Spittle -----------
 		SpittleService spittleService = new SpittleService();
-		spittleService.createSpittle(1024, "Good Morning!","10:30", 123456.789, 987654.321);
+		spittleService.createSpittle("Good Morning!","10:30", 123456.789, 987654.321);
 
 		Spittle hello = spittleService.readSpittleById(1024L);
 		System.out.println(hello.toString());
 
-		spittleService.updateSpittleMessage(1024L, "Good Night!");
-		System.out.println(spittleService.readSpittleById(1024L));
+//		spittleService.updateSpittleMessage(1024L, "Good Night!");
+//		System.out.println(spittleService.readSpittleById(1024L));
 
 
 

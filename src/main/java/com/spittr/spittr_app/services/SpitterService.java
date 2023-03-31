@@ -14,16 +14,17 @@ public class SpitterService {
         this.spitterRepository = new SpitterRepository();
     }
 
-    public void createSpitter(Long id, String username, String password, String firstName, String lastName, String email){
+    public void createSpitter(String username, String password, String firstName, String lastName, String email){
         System.out.println("\n Create new spitter ...");
+        System.out.println("SpitterService.createSpitter");
         // ------ Plain JAVA -------------
         //return new Spitter(id, username, password, firstName, lastName, email);
 
         // ------ JDBC Repository  ---------------
-//        this.spitterJDBCRepository.createSpitter(id, username, password, firstName, lastName, email);
+        this.spitterJDBCRepository.createSpitter(username, password, firstName, lastName, email);
 
         // -------- Hibernate Repository ---------
-        this.spitterRepository.createSpitter(id, username, password, firstName, lastName, email);
+//        this.spitterRepository.createSpitter(id, username, password, firstName, lastName, email);
     }
 
     public Spitter readSpitterByUsername(String username){

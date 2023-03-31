@@ -11,6 +11,7 @@ import java.sql.SQLException;
 public class SpittleJDBCRepository {
     private ConnectionFactory connectionFactory;
     private Connection connection;
+    private Long id;
 
     public SpittleJDBCRepository() {
         connectionFactory = new ConnectionFactory();
@@ -18,26 +19,23 @@ public class SpittleJDBCRepository {
     }
 
     public void createSpittle(String message, String time, Double longitude, Double latitude) {
-        SpittleJDBCRepository spittleDAOService = new SpittleJDBCRepository();
-        
-        if (spittle == null) {
-            try {
-                /*Create an ID incremental*/
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO spittle (id, message, time, longitude, latitude) VALUES (?, ?, ?, ?, ?);");
-                ps.setLong(1, id);
-                ps.setString(2, message);
-                ps.setString(3, time);
-                ps.setDouble(4, longitude);
-                ps.setDouble(5, latitude);
-                ps.executeUpdate();
+        System.out.println("SpittleService.createSpittle.SpittleJDBCRepository.createSpittle");
 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+        try {
+            /*Create an ID incremental*/
+            id = this.getMaxId() + 1;
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO spittle (id, message, time, longitude, latitude) VALUES (?, ?, ?, ?, ?);");
+            ps.setLong(1, id);
+            ps.setString(2, message);
+            ps.setString(3, time);
+            ps.setDouble(4, longitude);
+            ps.setDouble(5, latitude);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        else{
-            System.err.println("\nSpittle with id:" + id + " already exists");
-        }
+
     }
 
     public Spittle getSpittleById(Long id) {
@@ -95,5 +93,23 @@ public class SpittleJDBCRepository {
 
     }
 
+    public Long getMaxId(){
+        System.out.println("SpittleService.createSpittle.SpittleJDBCRepository.createSpittle.getMaxId");
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT max(id) as maxId FROM spittle");
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return rs.getLong("maxId");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
 }
 

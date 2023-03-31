@@ -11,18 +11,21 @@ import java.sql.SQLException;
 public class SpitterJDBCRepository {
     private ConnectionFactory connectionFactory;
     private Connection connection;
+    private Long id;
 
     public SpitterJDBCRepository() {
         connectionFactory = new ConnectionFactory();
         connection = connectionFactory.getConnection();
     }
 
-    public void createSpitter(Long id, String username, String password, String firstName, String lastName, String email) {
+    public void createSpitter(String username, String password, String firstName, String lastName, String email) {
+        System.out.println("SpitterService.createSpitter.SpitterJDBCRepository.createSpitter");
         SpitterJDBCRepository spitterJDBCRepository = new SpitterJDBCRepository();
         Spitter spitter = spitterJDBCRepository.getSpitterByUsername(username);
 
         if (spitter == null) {
             try {
+                id = this.getMaxId() + 1;
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO spitter (id, username, password, firstName, lastName, email) VALUES (?, ?, ?, ?, ?, ?);");
                 ps.setLong(1, id);
                 ps.setString(2, username);
@@ -98,6 +101,25 @@ public class SpitterJDBCRepository {
             ex.printStackTrace();
         }
 
+    }
+
+    public Long getMaxId(){
+        System.out.println("SpitterService.createSpitter.SpitterJDBCRepository.createSpitter.getMaxId");
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT max(id) as maxId FROM spitter");
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                return rs.getLong("maxId");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
 }
