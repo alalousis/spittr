@@ -8,7 +8,7 @@ CREATE DATABASE `spittrdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb
 ---------------------------
 create table spitter
 (
-    id        bigint      not null,
+    id        bigint auto_increment,
     username  varchar(45) not null,
     password  varchar(45) not null,
     firstName varchar(45) not null,
@@ -22,7 +22,7 @@ create table spitter
 ---------------------------
 create table spittle
 (
-    id        bigint       not null
+    id        bigint auto_increment
         primary key,
     message   varchar(500) not null,
     time      varchar(15)  not null,
