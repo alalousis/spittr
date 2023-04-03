@@ -21,10 +21,10 @@ public class SpitterService {
         //return new Spitter(id, username, password, firstName, lastName, email);
 
         // ------ JDBC Repository  ---------------
-        this.spitterJDBCRepository.createSpitter(username, password, firstName, lastName, email);
+        //this.spitterJDBCRepository.createSpitter(username, password, firstName, lastName, email);
 
         // -------- Hibernate Repository ---------
-//        this.spitterRepository.createSpitter(id, username, password, firstName, lastName, email);
+        this.spitterRepository.createSpitter(username, password, firstName, lastName, email);
     }
 
     public Spitter readSpitterByUsername(String username){
@@ -33,7 +33,10 @@ public class SpitterService {
         //System.out.println(spitter.read());
 
         // ------ JDBC Repository  ---------------
-        return this.spitterJDBCRepository.getSpitterByUsername(username);
+        //return this.spitterJDBCRepository.getSpitterByUsername(username);
+
+        // ------ Hibernate Repository  ---------------
+        return this.spitterRepository.getSpitterByUsername(username);
 
     }
     public void updateSpitterEmailByUsername(String username, String email){
@@ -42,7 +45,10 @@ public class SpitterService {
         //spitter.update(email);
 
         // ------ JDBC Repository  ---------------
-        spitterJDBCRepository.updateSpitterEmailByUsername(username, email);
+        //spitterJDBCRepository.updateSpitterEmailByUsername(username, email);
+
+        // ------ Hibernate Repository  ---------------
+        spitterRepository.updateSpitterEmailByUsername(username, email);
     }
     public void deleteSpitterByUsername(String username){
         System.out.println("\nDelete spitter ...:");
@@ -51,6 +57,9 @@ public class SpitterService {
         //spitter = null;
 
         // ------ JDBC Repository  ---------
-        spitterJDBCRepository.deleteSpitterByUsername(username);
+        //spitterJDBCRepository.deleteSpitterByUsername(username);
+
+        // ------ Hibernate Repository  ---------------
+        spitterRepository.deleteSpitterByUsername(username);
     }
 }

@@ -3,7 +3,6 @@ package com.spittr.spittr_app.models;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,6 +14,7 @@ public class Spitter {
     @NotNull
     private Long id;
 
+    @Id
     @NotNull
     private String username;
 

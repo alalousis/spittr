@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public static class SpitterJDBCRepository {
+public class SpitterJDBCRepository {
     private ConnectionFactory connectionFactory;
     private Connection connection;
 
@@ -20,17 +20,17 @@ public static class SpitterJDBCRepository {
 
     public void createSpitter(String username, String password, String firstName, String lastName, String email) {
         System.out.println("SpitterJDBCRepository.createSpitter");
-        Spitter spitter = spitterJDBCRepository.getSpitterByUsername(username);
+
+        Spitter spitter = this.getSpitterByUsername(username);
         if (spitter == null) {
             try {
-                id = this.getMaxId() + 1;
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO spitter (id, username, password, firstName, lastName, email) VALUES (?, ?, ?, ?, ?, ?);");
-                ps.setLong(1, id);
-                ps.setString(2, username);
-                ps.setString(3, password);
-                ps.setString(4, firstName);
-                ps.setString(5, lastName);
-                ps.setString(6, email);
+//                Long id = this.getMaxId() + 1;
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO spitter (username, password, firstName, lastName, email) VALUES (?, ?, ?, ?, ?);");
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setString(3, firstName);
+                ps.setString(4, lastName);
+                ps.setString(5, email);
                 ps.executeUpdate();
             } catch (SQLException ex) {
                 System.err.println("Test");
@@ -89,20 +89,6 @@ public static class SpitterJDBCRepository {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public Long getMaxId(){
-        System.out.println("SpitterJDBCRepository.getMaxId");
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT max(id) as maxId FROM spitter");
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                return rs.getLong("maxId");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 
 }

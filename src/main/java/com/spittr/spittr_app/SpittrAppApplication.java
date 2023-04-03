@@ -15,14 +15,16 @@ public class SpittrAppApplication {
 
 		// ----------- Spitter -----------
 		SpitterService spitterService = new SpitterService();
-		spitterService.createSpitter("leondardodicaprio2", "4567", "leonardo", "dicaprio", "dicaprio@gmail.com");
+		spitterService.createSpitter("michaeljackson", "1960", "michael", "jackson", "michaeljackson@gmail.com");
 
 
-		Spitter spitterDicaprio= spitterService.readSpitterByUsername("leondardodicaprio");
+		Spitter spitterDicaprio = spitterService.readSpitterByUsername("leondardodicaprio");
 		System.out.println(spitterDicaprio.toString());
 
-		spitterService.updateSpitterEmailByUsername("leonelMessi", "leo@gmail.com");
-		System.out.println(spitterService.readSpitterByUsername("leonelMessi"));
+		spitterService.updateSpitterEmailByUsername("leondardodicaprio", "leo@gmail.com");
+		System.out.println(spitterService.readSpitterByUsername("leondardodicaprio"));
+
+		//spitterService.deleteSpitterByUsername("leondardodicaprio2");
 
 		// ----------- Spittle -----------
 		SpittleService spittleService = new SpittleService();

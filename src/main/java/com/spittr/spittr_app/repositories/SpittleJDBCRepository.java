@@ -22,14 +22,12 @@ public class SpittleJDBCRepository {
         System.out.println("SpittleService.createSpittle.SpittleJDBCRepository.createSpittle");
 
         try {
-            /*Create an ID incremental*/
-            id = this.getMaxId() + 1;
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO spittle (id, message, time, longitude, latitude) VALUES (?, ?, ?, ?, ?);");
-            ps.setLong(1, id);
-            ps.setString(2, message);
-            ps.setString(3, time);
-            ps.setDouble(4, longitude);
-            ps.setDouble(5, latitude);
+
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO spittle (message, time, longitude, latitude) VALUES (?, ?, ?, ?);");
+            ps.setString(1, message);
+            ps.setString(2, time);
+            ps.setDouble(3, longitude);
+            ps.setDouble(4, latitude);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -93,23 +91,5 @@ public class SpittleJDBCRepository {
 
     }
 
-    public Long getMaxId(){
-        System.out.println("SpittleService.createSpittle.SpittleJDBCRepository.createSpittle.getMaxId");
-
-        try {
-            PreparedStatement ps = connection.prepareStatement("SELECT max(id) as maxId FROM spittle");
-
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()) {
-                return rs.getLong("maxId");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
 }
 
