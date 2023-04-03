@@ -1,10 +1,26 @@
 package com.spittr.spittr_app.models;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="spittle")
 public class Spittle {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
+
+    @NotNull
     private String message;
+
+    @NotNull
     private String time;
+
+    @NotNull
     private Double longitude;
+
+    @NotNull
     private Double latitude;
 
     public Spittle() {

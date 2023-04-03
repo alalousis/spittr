@@ -17,6 +17,7 @@ public class SpitterService {
     public void createSpitter(String username, String password, String firstName, String lastName, String email){
         System.out.println("\n Create new spitter ...");
         System.out.println("SpitterService.createSpitter");
+
         // ------ Plain JAVA -------------
         //return new Spitter(id, username, password, firstName, lastName, email);
 

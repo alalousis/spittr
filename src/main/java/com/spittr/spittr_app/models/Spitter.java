@@ -2,19 +2,18 @@ package com.spittr.spittr_app.models;
 
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="spitter")
-public class Spitter {
-    @Id
+public class Spitter implements java.io.Serializable {
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Long id;
 
-    @Id
+    @NaturalId
     @NotNull
     private String username;
 

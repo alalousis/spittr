@@ -11,51 +11,61 @@ public class SpitterRepository {
 
     public SpitterRepository() {
         System.out.println("SpitterRepository.constructor");
+
         Configuration config=new Configuration();
         config.configure();
         sessionFactory = config.buildSessionFactory();
-
     }
 
     public void createSpitter(String username, String password, String firstName, String lastName, String email) {
         System.out.println("SpitterRepository.createSpitter");
+
         Session session = sessionFactory.openSession();
         Transaction transaction=session.beginTransaction();
 
-        Spitter spitter = new Spitter(id, username, password, firstName, lastName, email);
+        Spitter spitter = new Spitter(null, username, password, firstName, lastName, email);
         session.save(spitter);
-        transaction.commit();
 
+        transaction.commit();
+        session.close();
     }
 
     public Spitter getSpitterByUsername(String username) {
         System.out.println("SpitterRepository.getSpitterByUsername");
+
         Session session = sessionFactory.openSession();
 
-        Spitter spitter = session.get(Spitter.class, username);
+        Spitter spitter = session.bySimpleNaturalId(Spitter.class).load(username);
 
+        session.close();
         return spitter;
     }
 
     public void updateSpitterEmailByUsername(String username, String email) {
         System.out.println("SpitterRepository.getSpitterByUsername");
+
         Session session = sessionFactory.openSession();
         Transaction transaction=session.beginTransaction();
 
-        Spitter spitter = session.get(Spitter.class, 2000L);
+        Spitter spitter = session.bySimpleNaturalId(Spitter.class).load(username);
         spitter.setEmail(email);
         session.save(spitter);
+
         transaction.commit();
+        session.close();
     }
 
     public void deleteSpitterByUsername(String username) {
         System.out.println("SpitterRepository.deleteSpitterByUsername");
+
         Session session = sessionFactory.openSession();
         Transaction transaction=session.beginTransaction();
 
-        Spitter spitter = session.get(Spitter.class, 2001L);
+        Spitter spitter = session.bySimpleNaturalId(Spitter.class).load(username);
         session.delete(spitter);
+
         transaction.commit();
+        session.close();
     }
 
 }
